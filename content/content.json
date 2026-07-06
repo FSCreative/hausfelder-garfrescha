@@ -1,0 +1,128 @@
+{
+  "site": {
+    "name": "Haus Felder Garfrescha",
+    "tagline": "Gönn' dir eine Auszeit auf 1.500 Höhenmeter!",
+    "phone": "+43 650 6284127",
+    "email": "hausfelder.garfrescha@gmail.com",
+    "facebook": "https://www.facebook.com/hausfelder.garfrescha",
+    "instagram": "https://instagram.com/hausfelder.garfrescha"
+  },
+  "home": {
+    "heroTitle": "Haus Felder Garfrescha",
+    "heroSubtitle": "Gönn' dir eine Auszeit auf 1.500 Höhenmeter!",
+    "introText": "Garfrescha ist ein idyllisches Feriendomizil auf ca. 1.500 Höhenmeter oberhalb von St. Gallenkirch, direkt im Skigebiet Silvretta Montafon. Umgeben von der charakteristisch schönen Maisäß-Landschaft findest du hier Ruhe, Natur und echtes Bergerlebnis – im Sommer wie im Winter.",
+    "welcomeText": "Wir freuen uns auf euch!",
+    "cardWohnungText": "Unsere 2020 neu errichtete Berghütte bietet Platz für bis zu 5 Personen – modern, gemütlich und mitten im Skigebiet.",
+    "cardAnreiseText": "Im Sommer bequem mit dem Auto bis zur Hütte, im Winter mit Sessellift und Skidoo – so kommst du zu uns.",
+    "factHoehe": "1.500 m Seehöhe",
+    "factPersonen": "Bis zu 5 Personen",
+    "factSki": "Mitten im Skigebiet Silvretta Montafon",
+    "factBaujahr": "Neu errichtet 2020"
+  },
+  "wohnung": {
+    "title": "Unsere Wohnung",
+    "introText": "Wir haben im Sommer 2020 unsere neue Berghütte errichtet. Die Wohnung bietet Platz für max. 5 Personen.",
+    "ausstattung": [
+      "2 Schlafzimmer (1x Doppelzimmer und 1x Dreibettzimmer mit Hochbett)",
+      "Gemütlicher Wohn-Ess-Bereich",
+      "Vollausgestattete Küche (E-Herd und Backofen, Geschirrspüler, Kühlschrank mit Gefrierfach, Toaster, Mixer, Sodaclub, Wasserkocher, Kaffeemaschine Nespresso, Raclette- und Fonduegerät, Geschirrspülmittel)",
+      "Bad mit Dusche und WC (Fön vorhanden)",
+      "Garderobe mit Schuhtrockner und Skiständer",
+      "SAT-TV in der Wohnküche sowie in beiden Schlafzimmern",
+      "Kostenfreies WLAN",
+      "Liegestühle",
+      "Holzkohlegrill (nur im Sommer)"
+    ],
+    "nichtAusstattung": [
+      "Bettwäsche",
+      "Hand- und Duschtücher",
+      "Geschirrtücher",
+      "Kaffeekapseln für Nespresso-Maschine",
+      "Grillkohle"
+    ],
+    "hinweisWasser": "Unser Leitungswasser hat ausgezeichnete Trinkwasserqualität.",
+    "hinweisEinkauf": "Gegenüber beim Brunellawirt oder im Alpenhotel Garfrescha können frische Brötchen und einige Lebensmittel erworben werden."
+  },
+  "anreise": {
+    "title": "Infos zur Anreise",
+    "introText": "Alle Infos sind auch ersichtlich unter www.garfrescha1500.at",
+    "sommerText": "Über eine ca. 5 km lange asphaltierte Bergstraße erreichst du mit dem eigenen Fahrzeug direkt unsere Berghütte. Zum Be- und Entladen kann bis vor die Hütte gefahren werden, danach bitte das Fahrzeug auf die ausgewiesenen Parkplätze stellen. Den Fahrschein besorgen wir für euch – er liegt in der Hütte bereit.",
+    "sommerAchtung": "Achtung: Auf dem Weg nach Garfrescha zeigt das Navi eine falsche Abzweigung nach rechts Richtung Maisäß Grandau. Dort bitte geradeaus weiterfahren.",
+    "sommerCheckin": "ab 12:00 Uhr",
+    "sommerCheckout": "bis spätestens 10:00 Uhr",
+    "winterText": "Da du deinen Urlaub mitten im Schigebiet Silvretta Montafon verbringst, erreichst du unsere Hütte nur über den Sessellift Garfrescha. Der Gepäcktransport erfolgt ebenso mit dem Sessellift, daher sollte das Gepäck sicher und wetterfest verpackt werden. Das Gepäck wird nach Gewicht verrechnet, wobei Schischuhe sowie Wintersportgeräte kostenlos sind.",
+    "winterSkidoo": "Der weitere Gepäcktransport von der Bergstation Garfrescha bis zur Hütte erfolgt mittels Skidoo. Bitte kontaktiere uns im Vorhinein, wann die An- bzw. Abreise stattfindet. Die Kosten für den Skidootransport sind im Mietpreis inbegriffen!",
+    "winterCheckin": "von 12:00 bis spätestens 14:00 Uhr",
+    "winterCheckout": "bis spätestens 10:00 Uhr"
+  },
+  "sommer": {
+    "title": "Sommer in Garfrescha",
+    "introText": "Garfrescha ist im Sommer ein idealer Urlaubsort für:",
+    "aktivitaeten": [
+      "Wanderungen mit Bergfrühstück",
+      "Hochtouren auf verschiedene umliegende Berggipfel",
+      "Klettersteige",
+      "Gemütliche Spaziergänge",
+      "Spielen oder Baden beim \"Hafensee\"",
+      "\"Grafhugo Schatzsuchweg\" für Kinder",
+      "Fischen in einem kleinen nahegelegenen Alpsee",
+      "Erkundung der \"Alpe Nova\"",
+      "Oder einfach mal die Seele baumeln lassen"
+    ],
+    "linksText": "Und viele weitere Aktivitäten findest du unter:"
+  },
+  "winter": {
+    "title": "Winter in Garfrescha",
+    "introText": "Im Winter verbringst du deinen Urlaub mitten im Schigebiet Silvretta Montafon. Dort erwartet dich:",
+    "aktivitaeten": [
+      "Über 140 km Pisten aller Schwierigkeitsgrade",
+      "35 Liftanlagen",
+      "70 Freeride-Routen",
+      "Jeden DI, DO und SA Nachtrodeln auf der beleuchteten Rodelbahn",
+      "Gemütliche Spaziergänge in den frisch verschneiten Bergen"
+    ],
+    "linksText": "Und viele weitere Aktivitäten findest du unter:"
+  },
+  "kontakt": {
+    "title": "Kontakt",
+    "name": "Barbara Felder",
+    "buchbarText": "Wir sind auch direkt buchbar unter:",
+    "ausgebuchtText": "Ausgebucht? Da haben wir Empfehlungen:",
+    "empfehlung1": "Hütte meiner Eltern: Ferienhaus Älpele Garfrescha – www.hausaelpele-garfrescha.at",
+    "empfehlung2": "Hütte meiner Schwester Sabine: Haus zur Kapelle – www.alphuette.at",
+    "talText": "Urlaub im Tal? Da haben wir Empfehlungen:",
+    "tal1": "Für St. Gallenkirch: www.haus-lifinar.at",
+    "tal2": "Für Gaschurn: www.info-felder.at"
+  },
+  "galleries": {
+    "wohnung": [
+      "/images/wohnung-01.jpg",
+      "/images/wohnung-02.jpg",
+      "/images/wohnung-03.jpg",
+      "/images/wohnung-04.jpg",
+      "/images/wohnung-05.jpg",
+      "/images/wohnung-06.jpg",
+      "/images/wohnung-07.jpg",
+      "/images/wohnung-08.jpg",
+      "/images/wohnung-09.jpg",
+      "/images/wohnung-10.jpg",
+      "/images/wohnung-11.jpg",
+      "/images/wohnung-12.jpg",
+      "/images/wohnung-13.jpg",
+      "/images/wohnung-14.jpg",
+      "/images/wohnung-15.jpg"
+    ],
+    "sommer": [
+      "/images/sommer-01.jpg",
+      "/images/sommer-02.jpg",
+      "/images/sommer-03.jpg",
+      "/images/sommer-04.jpg"
+    ],
+    "winter": [
+      "/images/winter-01.jpg",
+      "/images/winter-02.jpg",
+      "/images/winter-03.jpg",
+      "/images/winter-04.jpg"
+    ]
+  }
+}
