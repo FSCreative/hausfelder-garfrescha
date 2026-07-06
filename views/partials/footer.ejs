@@ -1,0 +1,54 @@
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4><%= c.site.name %></h4>
+      <p><%= c.kontakt.name %><br>
+        Garfrescha, St. Gallenkirch<br>
+        Montafon, Vorarlberg</p>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <p>
+        <a href="tel:<%= c.site.phone.replace(/\s+/g, '') %>"><%= c.site.phone %></a><br>
+        <a href="mailto:<%= c.site.email %>"><%= c.site.email %></a>
+      </p>
+      <div class="social">
+        <a href="<%= c.site.facebook %>" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.5-.13-2.5 0-4.2 1.5-4.2 4.3v2.1H7.3V13H10v8z"/></svg>
+        </a>
+        <a href="<%= c.site.instagram %>" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Seiten</h4>
+      <p>
+        <a href="/wohnung">Wohnung</a><br>
+        <a href="/anreise">Anreise</a><br>
+        <a href="/sommer">Sommer</a> · <a href="/winter">Winter</a><br>
+        <a href="/anfrage">Anfrage</a>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Rechtliches</h4>
+      <p>
+        <a href="/files/agb.pdf" target="_blank">AGB für Ferienwohnungen</a>
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <%= new Date().getFullYear() %> Haus Felder Garfrescha</span>
+    <a href="/admin" class="admin-link">Admin</a>
+  </div>
+</footer>
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" aria-label="Schließen">&times;</button>
+  <button class="lb-prev" aria-label="Vorheriges Bild">&#10094;</button>
+  <img src="" alt="">
+  <button class="lb-next" aria-label="Nächstes Bild">&#10095;</button>
+</div>
+<script src="/js/main.js"></script>
+</body>
+</html>

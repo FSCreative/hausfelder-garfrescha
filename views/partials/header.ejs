@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= typeof title !== 'undefined' && title ? title + ' | ' : '' %><%= c.site.name %> | St. Gallenkirch | Montafon</title>
+  <meta name="description" content="Gönn' dir eine Auszeit auf 1.500 Höhenmeter! Ferienwohnung in Garfrescha, mitten im Skigebiet Silvretta Montafon – Urlaub in der charakteristisch schönen Maisäß-Landschaft.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/images/logo.png" type="image/png">
+</head>
+<body>
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="/" class="brand">
+      <svg class="brand-icon" viewBox="0 0 48 32" aria-hidden="true"><path d="M2 30 L16 6 L24 18 L30 8 L46 30 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M13 11 L16 6 L19 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+      <span><%= c.site.name %></span>
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="/" class="<%= page === '/' ? 'active' : '' %>">Home</a>
+      <a href="/wohnung" class="<%= page === '/wohnung' ? 'active' : '' %>">Wohnung</a>
+      <a href="/anreise" class="<%= page === '/anreise' ? 'active' : '' %>">Anreise</a>
+      <a href="/sommer" class="<%= page === '/sommer' ? 'active' : '' %>">Sommer</a>
+      <a href="/winter" class="<%= page === '/winter' ? 'active' : '' %>">Winter</a>
+      <a href="/kontakt" class="<%= page === '/kontakt' ? 'active' : '' %>">Kontakt</a>
+      <a href="/anfrage" class="btn btn-accent nav-cta">Anfrage</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<main>
