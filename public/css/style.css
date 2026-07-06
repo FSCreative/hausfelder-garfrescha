@@ -321,8 +321,67 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .thumb-actions button.danger { background: #e05e5e; color: #fff; }
 .upload-form { display: flex; gap: .8rem; margin-top: 1rem; flex-wrap: wrap; align-items: center; }
 
+/* ---------- Bottom-Navigation (nur mobil) ---------- */
+.bottom-nav { display: none; }
+
 /* ---------- Mobil ---------- */
 @media (max-width: 860px) {
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+
+  .bottom-nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 150;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    background: rgba(53, 46, 40, .96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: .45rem .3rem calc(.45rem + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, .28);
+  }
+  .bottom-nav a {
+    display: flex; flex-direction: column; align-items: center; gap: .18rem;
+    color: #b7aa9d; font-size: .68rem; font-weight: 500; text-decoration: none !important;
+    padding: .2rem 0; -webkit-tap-highlight-color: transparent;
+  }
+  .bottom-nav a svg { width: 23px; height: 23px; transition: transform .2s; }
+  .bottom-nav a.active { color: var(--salmon); }
+  .bottom-nav a:active svg { transform: scale(.85); }
+  .bn-cta { margin-top: -1.5rem; }
+  .bn-cta-circle {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(145deg, var(--salmon), var(--salmon-dark));
+    display: grid; place-items: center; color: #fff;
+    box-shadow: 0 6px 18px rgba(224, 138, 94, .55), 0 0 0 5px var(--cream);
+    transition: transform .2s;
+  }
+  .bn-cta:active .bn-cta-circle { transform: scale(.92); }
+  .bn-cta.active { color: var(--salmon); }
+  .bn-cta-circle svg { width: 24px; height: 24px; }
+
+  /* Wisch-Galerien mit Snap */
+  .gallery, .gallery-wide {
+    display: flex; overflow-x: auto; gap: .8rem;
+    scroll-snap-type: x mandatory;
+    padding: .2rem .2rem 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .gallery::-webkit-scrollbar, .gallery-wide::-webkit-scrollbar { display: none; }
+  .gallery .gallery-item, .gallery-wide .gallery-item {
+    flex: 0 0 78%; scroll-snap-align: center;
+    aspect-ratio: 4/3; border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  /* App-Feeling: kompakter Hero, große Touch-Flächen */
+  .hero { min-height: 480px; }
+  .hero-actions { flex-direction: column; align-items: stretch; padding: 0 1.2rem; }
+  .hero-actions .btn { text-align: center; padding: 1rem 2rem; }
+  .btn { padding: .8rem 1.6rem; }
+  .season-toggle { margin-top: 1.6rem; }
+  .hero-scroll { display: none; }
+  .activity { padding: 1.1rem 1.2rem; }
+  .inquiry-form input, .inquiry-form select, .inquiry-form textarea { padding: .9rem 1rem; font-size: 1.05rem; }
+  .footer-bottom { padding-bottom: 1.3rem; }
   .nav-toggle { display: block; }
   .main-nav {
     position: fixed; top: 0; right: 0; height: 100vh; width: min(78vw, 320px);
