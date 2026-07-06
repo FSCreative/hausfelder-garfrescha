@@ -1,0 +1,57 @@
+<%- include('partials/header', { title: 'Kontakt' }) %>
+
+<section class="page-hero" style="background-image:url('/images/winter-04.jpg')">
+  <div class="hero-overlay"></div>
+  <div class="page-hero-content">
+    <h1><%= c.kontakt.title %></h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container cols-2">
+    <div class="panel contact-panel reveal">
+      <img src="/images/logo-kontakt.png" alt="Haus Felder Garfrescha Logo" class="contact-logo">
+      <h3><%= c.site.name %></h3>
+      <p class="contact-name"><%= c.kontakt.name %></p>
+      <p>
+        📞 <a href="tel:<%= c.site.phone.replace(/\s+/g, '') %>"><%= c.site.phone %></a><br>
+        ✉ <a href="mailto:<%= c.site.email %>"><%= c.site.email %></a>
+      </p>
+      <p>Folge uns auch auf:</p>
+      <div class="social social-dark">
+        <a href="<%= c.site.facebook %>" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.5-.13-2.5 0-4.2 1.5-4.2 4.3v2.1H7.3V13H10v8z"/></svg>
+        </a>
+        <a href="<%= c.site.instagram %>" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+      <p><a href="/files/agb.pdf" target="_blank">Es gelten die AGB für Ferienwohnungen (PDF)</a></p>
+      <a href="/anfrage" class="btn btn-accent">Unverbindliche Anfrage</a>
+    </div>
+
+    <div class="reveal">
+      <div class="panel panel-muted">
+        <h3><%= c.kontakt.buchbarText %></h3>
+        <div class="booking-logos">
+          <a href="https://www.montafon.at/de/haus-felder-garfrescha_vc17881" target="_blank" rel="noopener"><img src="/images/logo-montafon.jpg" alt="Montafon"></a>
+          <a href="https://www.booking.com/hotel/at/haus-felder-garfrescha.de.html" target="_blank" rel="noopener"><img src="/images/logo-booking.jpg" alt="Booking.com"></a>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:1.5rem">
+        <h3><%= c.kontakt.ausgebuchtText %></h3>
+        <ul class="list-dash">
+          <li><a href="http://www.hausaelpele-garfrescha.at" target="_blank" rel="noopener"><%= c.kontakt.empfehlung1 %></a></li>
+          <li><a href="http://www.alphuette.at" target="_blank" rel="noopener"><%= c.kontakt.empfehlung2 %></a></li>
+        </ul>
+        <h3 style="margin-top:1.5rem"><%= c.kontakt.talText %></h3>
+        <ul class="list-dash">
+          <li><a href="http://www.haus-lifinar.at" target="_blank" rel="noopener"><%= c.kontakt.tal1 %></a></li>
+          <li><a href="http://www.info-felder.at" target="_blank" rel="noopener"><%= c.kontakt.tal2 %></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

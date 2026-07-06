@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | Haus Felder Garfrescha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+<header class="admin-header">
+  <strong>⚙ Admin – Haus Felder Garfrescha</strong>
+  <nav>
+    <a href="/" target="_blank">Website ansehen ↗</a>
+    <a href="/admin/logout">Abmelden</a>
+  </nav>
+</header>
+
+<main class="admin-main">
+  <% if (saved) { %><div class="success-box slim">✓ Gespeichert</div><% } %>
+
+  <%
+    const sectionNames = {
+      site: 'Allgemein', home: 'Startseite', wohnung: 'Wohnung', anreise: 'Anreise',
+      sommer: 'Sommer', winter: 'Winter', kontakt: 'Kontakt'
+    };
+    const fieldLabels = {
+      name: 'Name', tagline: 'Slogan', phone: 'Telefon', email: 'E-Mail', facebook: 'Facebook-URL', instagram: 'Instagram-URL',
+      heroTitle: 'Hero-Titel', heroSubtitle: 'Hero-Untertitel', introText: 'Einleitungstext', welcomeText: 'Willkommenstext',
+      cardWohnungText: 'Karte „Wohnung“', cardAnreiseText: 'Karte „Anreise“',
+      factHoehe: 'Fakt: Höhe', factPersonen: 'Fakt: Personen', factSki: 'Fakt: Skigebiet', factBaujahr: 'Fakt: Baujahr',
+      title: 'Titel', ausstattung: 'Ausstattung (1 Zeile = 1 Punkt)', nichtAusstattung: 'Nicht enthalten (1 Zeile = 1 Punkt)',
+      hinweisWasser: 'Hinweis Trinkwasser', hinweisEinkauf: 'Hinweis Einkauf',
+      sommerText: 'Text Sommer', sommerAchtung: 'Achtung-Hinweis Sommer', sommerCheckin: 'Check-in Sommer', sommerCheckout: 'Check-out Sommer',
+      winterText: 'Text Winter', winterSkidoo: 'Skidoo-Hinweis', winterCheckin: 'Check-in Winter', winterCheckout: 'Check-out Winter',
+      aktivitaeten: 'Aktivitäten (1 Zeile = 1 Punkt)', linksText: 'Text über den Links',
+      buchbarText: 'Text „buchbar unter“', ausgebuchtText: 'Text „Ausgebucht“',
+      empfehlung1: 'Empfehlung 1', empfehlung2: 'Empfehlung 2', talText: 'Text „Urlaub im Tal“', tal1: 'Tal-Empfehlung 1', tal2: 'Tal-Empfehlung 2'
+    };
+    const galleryNames = { wohnung: 'Wohnung', sommer: 'Sommer', winter: 'Winter' };
+  %>
+
+  <h1>Texte bearbeiten</h1>
+  <form method="POST" action="/admin/save">
+    <div class="admin-tabs">
+      <% Object.keys(sectionNames).forEach((sec, i) => { %>
+        <button type="button" class="tab-btn <%= i === 0 ? 'active' : '' %>" data-tab="<%= sec %>"><%= sectionNames[sec] %></button>
+      <% }) %>
+    </div>
+
+    <% Object.keys(sectionNames).forEach((sec, i) => { %>
+      <fieldset class="tab-panel <%= i === 0 ? 'active' : '' %>" id="tab-<%= sec %>">
+        <% Object.entries(c[sec]).forEach(([key, val]) => { %>
+          <label class="admin-field">
+            <span><%= fieldLabels[key] || key %></span>
+            <% if (Array.isArray(val)) { %>
+              <textarea name="<%= sec %>.<%= key %>" rows="<%= Math.max(4, val.length + 1) %>"><%= val.join('\n') %></textarea>
+            <% } else if (String(val).length > 80) { %>
+              <textarea name="<%= sec %>.<%= key %>" rows="4"><%= val %></textarea>
+            <% } else { %>
+              <input type="text" name="<%= sec %>.<%= key %>" value="<%= val %>">
+            <% } %>
+          </label>
+        <% }) %>
+      </fieldset>
+    <% }) %>
+
+    <button type="submit" class="btn btn-accent btn-lg admin-save">Alle Texte speichern</button>
+  </form>
+
+  <h1 id="fotos">Fotos verwalten</h1>
+  <% Object.entries(galleryNames).forEach(([g, label]) => { %>
+    <section class="admin-gallery">
+      <h2>Galerie „<%= label %>“ (<%= c.galleries[g].length %> Fotos)</h2>
+      <div class="admin-thumbs">
+        <% c.galleries[g].forEach(src => { %>
+          <div class="admin-thumb">
+            <img src="<%= src %>" alt="">
+            <div class="thumb-actions">
+              <form method="POST" action="/admin/move-image"><input type="hidden" name="gallery" value="<%= g %>"><input type="hidden" name="src" value="<%= src %>"><input type="hidden" name="dir" value="up"><button title="Nach vorne">◀</button></form>
+              <form method="POST" action="/admin/delete-image" onsubmit="return confirm('Foto wirklich entfernen?')"><input type="hidden" name="gallery" value="<%= g %>"><input type="hidden" name="src" value="<%= src %>"><button title="Entfernen" class="danger">✕</button></form>
+              <form method="POST" action="/admin/move-image"><input type="hidden" name="gallery" value="<%= g %>"><input type="hidden" name="src" value="<%= src %>"><input type="hidden" name="dir" value="down"><button title="Nach hinten">▶</button></form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <form method="POST" action="/admin/upload" enctype="multipart/form-data" class="upload-form">
+        <input type="hidden" name="gallery" value="<%= g %>">
+        <input type="file" name="foto" accept="image/*" required>
+        <button type="submit" class="btn btn-outline">Foto hochladen</button>
+      </form>
+    </section>
+  <% }) %>
+</main>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<%- include('partials/header', { title: 'Anreise' }) %>
+
+<section class="page-hero" style="background-image:url('/images/anreise-sommer.jpg')">
+  <div class="hero-overlay"></div>
+  <div class="page-hero-content">
+    <h1><%= c.anreise.title %></h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow reveal">
+    <p class="lead">Infos sind auch ersichtlich unter <a href="http://www.garfrescha1500.at" target="_blank" rel="noopener">garfrescha1500.at</a></p>
+  </div>
+
+  <div class="container cols-2">
+    <div class="panel season-panel reveal">
+      <div class="season-head sun">
+        <h3>☀ Im Sommer</h3>
+      </div>
+      <p><%= c.anreise.sommerText %></p>
+      <div class="alert">⚠ <%= c.anreise.sommerAchtung %></div>
+      <div class="check-times">
+        <div><strong>Check-in</strong><span><%= c.anreise.sommerCheckin %></span></div>
+        <div><strong>Check-out</strong><span><%= c.anreise.sommerCheckout %></span></div>
+      </div>
+      <img src="/images/anreise-sommer.jpg" alt="Anreise im Sommer" loading="lazy" data-lightbox="anreise">
+    </div>
+
+    <div class="panel season-panel reveal">
+      <div class="season-head snow">
+        <h3>❄ Im Winter</h3>
+      </div>
+      <p><%= c.anreise.winterText %></p>
+      <p><%= c.anreise.winterSkidoo %></p>
+      <div class="check-times">
+        <div><strong>Check-in</strong><span><%= c.anreise.winterCheckin %></span></div>
+        <div><strong>Check-out</strong><span><%= c.anreise.winterCheckout %></span></div>
+      </div>
+      <img src="/images/anreise-winter.jpg" alt="Anreise im Winter" loading="lazy" data-lightbox="anreise">
+    </div>
+  </div>
+
+  <div class="container center reveal">
+    <a href="/anfrage" class="btn btn-accent btn-lg">Anreise ankündigen &amp; anfragen</a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

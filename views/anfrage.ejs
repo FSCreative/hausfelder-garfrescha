@@ -1,0 +1,50 @@
+<%- include('partials/header', { title: 'Anfrage' }) %>
+
+<section class="page-hero" style="background-image:url('/images/sommer-04.jpg')">
+  <div class="hero-overlay"></div>
+  <div class="page-hero-content">
+    <h1>Unverbindliche Anfrage</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <% if (sent === true) { %>
+      <div class="success-box reveal">
+        <h2>Vielen Dank! 🏔</h2>
+        <p>Deine Anfrage wurde erfolgreich gesendet. Wir melden uns so schnell wie möglich bei dir.</p>
+        <a href="/" class="btn btn-outline">Zurück zur Startseite</a>
+      </div>
+    <% } else { %>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert" style="margin-bottom:1.5rem">⚠ <%= error %></div>
+      <% } %>
+      <form method="POST" action="/anfrage" class="inquiry-form reveal">
+        <div class="form-row">
+          <label>Name *<input type="text" name="name" required value="<%= form.name || '' %>"></label>
+          <label>E-Mail *<input type="email" name="email" required value="<%= form.email || '' %>"></label>
+        </div>
+        <div class="form-row">
+          <label>Telefon<input type="tel" name="telefon" value="<%= form.telefon || '' %>"></label>
+          <label>Personen *
+            <select name="personen" required>
+              <% [1,2,3,4,5].forEach(n => { %>
+                <option value="<%= n %>" <%= String(form.personen) === String(n) ? 'selected' : '' %>><%= n %> <%= n === 1 ? 'Person' : 'Personen' %></option>
+              <% }) %>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>Anreise *<input type="date" name="anreise" required value="<%= form.anreise || '' %>"></label>
+          <label>Abreise *<input type="date" name="abreise" required value="<%= form.abreise || '' %>"></label>
+        </div>
+        <label>Nachricht<textarea name="nachricht" rows="5" placeholder="Deine Nachricht an uns…"><%= form.nachricht || '' %></textarea></label>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button type="submit" class="btn btn-accent btn-lg">Anfrage senden</button>
+        <p class="form-note">* Pflichtfelder. Die Anfrage ist unverbindlich.</p>
+      </form>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

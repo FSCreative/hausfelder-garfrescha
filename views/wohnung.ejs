@@ -1,0 +1,51 @@
+<%- include('partials/header', { title: 'Wohnung' }) %>
+
+<section class="page-hero" style="background-image:url('/images/wohnung-aussen.jpg')">
+  <div class="hero-overlay"></div>
+  <div class="page-hero-content">
+    <h1><%= c.wohnung.title %></h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow reveal">
+    <p class="lead"><%= c.wohnung.introText %></p>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2 class="section-title reveal">Einblicke</h2>
+    <div class="gallery reveal">
+      <% c.galleries.wohnung.forEach((src, i) => { %>
+        <figure class="gallery-item"><img src="<%= src %>" alt="Wohnung Bild <%= i + 1 %>" loading="lazy" data-lightbox="wohnung"></figure>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container cols-2">
+    <div class="panel reveal">
+      <h3>✓ Ausstattung</h3>
+      <ul class="list-check">
+        <% c.wohnung.ausstattung.forEach(a => { %><li><%= a %></li><% }) %>
+      </ul>
+    </div>
+    <div class="panel panel-muted reveal">
+      <h3>Bitte selbst mitbringen</h3>
+      <ul class="list-dash">
+        <% c.wohnung.nichtAusstattung.forEach(a => { %><li><%= a %></li><% }) %>
+      </ul>
+      <div class="note">
+        <p>💧 <%= c.wohnung.hinweisWasser %></p>
+        <p>🥖 <%= c.wohnung.hinweisEinkauf %> <a href="http://www.brunellawirt.at" target="_blank" rel="noopener">brunellawirt.at</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="container center reveal">
+    <a href="/anfrage" class="btn btn-accent btn-lg">Verfügbarkeit anfragen</a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

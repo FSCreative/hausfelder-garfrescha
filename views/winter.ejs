@@ -1,0 +1,43 @@
+<%- include('partials/header', { title: 'Winter' }) %>
+
+<section class="page-hero" style="background-image:url('/images/winter-01.jpg')">
+  <div class="hero-overlay"></div>
+  <div class="page-hero-content">
+    <h1><%= c.winter.title %></h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow reveal">
+    <p class="lead"><%= c.winter.introText %></p>
+  </div>
+  <div class="container activities reveal">
+    <% c.winter.aktivitaeten.forEach(a => { %>
+      <div class="activity"><span>❄</span><%= a %></div>
+    <% }) %>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <h2 class="section-title reveal">Winter-Impressionen</h2>
+    <div class="gallery gallery-wide reveal">
+      <% c.galleries.winter.forEach((src, i) => { %>
+        <figure class="gallery-item"><img src="<%= src %>" alt="Winter Bild <%= i + 1 %>" loading="lazy" data-lightbox="winter"></figure>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow center reveal">
+    <p class="lead"><%= c.winter.linksText %></p>
+    <div class="link-buttons">
+      <a href="http://www.garfrescha1500.at" target="_blank" rel="noopener" class="btn btn-outline">Garfrescha 1500</a>
+      <a href="https://www.montafon.at/de" target="_blank" rel="noopener" class="btn btn-outline">Montafon</a>
+      <a href="https://www.silvretta-montafon.at/de" target="_blank" rel="noopener" class="btn btn-outline">Silvretta Montafon</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
