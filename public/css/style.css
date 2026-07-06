@@ -234,7 +234,18 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .inquiry-form input:focus, .inquiry-form select:focus, .inquiry-form textarea:focus {
   outline: none; border-color: var(--salmon);
 }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; min-width: 0; }
+.form-row > label, .inquiry-form label { min-width: 0; }
+.inquiry-form input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 2.85rem;
+}
+.inquiry-form input[type="date"]::-webkit-date-and-time-value { text-align: left; }
 .form-note { font-size: .85rem; color: var(--ink-soft); margin-top: .8rem; }
 .inquiry-form .btn { margin-top: .5rem; }
 .success-box {
