@@ -94,6 +94,12 @@
     "tal1": "Für St. Gallenkirch: www.haus-lifinar.at",
     "tal2": "Für Gaschurn: www.info-felder.at"
   },
+  "rechtliches": {
+    "betreiber": "Barbara Felder",
+    "unternehmensgegenstand": "Vermietung einer Ferienwohnung (Privatzimmervermietung)",
+    "adresse": "Garfrescha, 6791 St. Gallenkirch, Österreich",
+    "uid": ""
+  },
   "galleries": {
     "wohnung": [
       "/images/wohnung-01.jpg",
