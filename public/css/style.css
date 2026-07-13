@@ -273,6 +273,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .admin-link { color: #8a7d71; font-size: .85rem; }
 .admin-link:hover { color: var(--salmon); }
 
+/* ---------- Rechtsseiten ---------- */
+.legal h1 { font-size: 2rem; margin-bottom: .3rem; }
+.legal .legal-meta { font-size: .9rem; color: var(--ink-soft); margin-bottom: 1.8rem; }
+.legal h2 { font-size: 1.25rem; margin: 1.8rem 0 .5rem; }
+.legal p { color: var(--ink-soft); margin-bottom: .6rem; }
+
 /* ---------- Reveal-Animation ---------- */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity: 1; transform: none; }
