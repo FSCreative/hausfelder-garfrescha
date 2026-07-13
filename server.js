@@ -20,8 +20,25 @@ if (!fs.existsSync(CONTENT_FILE)) {
   fs.copyFileSync(SEED_FILE, CONTENT_FILE);
 }
 
+/* Seed-Inhalte mit gespeicherten Inhalten zusammenführen,
+   damit neue Felder nach Updates automatisch verfügbar sind */
+function deepMerge(base, override) {
+  if (Array.isArray(base)) return Array.isArray(override) ? override : base;
+  if (typeof base !== 'object' || base === null) return override !== undefined ? override : base;
+  const out = {};
+  for (const k of Object.keys(base)) {
+    out[k] = override && k in override ? deepMerge(base[k], override[k]) : base[k];
+  }
+  if (override) {
+    for (const k of Object.keys(override)) if (!(k in base)) out[k] = override[k];
+  }
+  return out;
+}
+
 function loadContent() {
-  return JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf8'));
+  const seed = JSON.parse(fs.readFileSync(SEED_FILE, 'utf8'));
+  const saved = JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf8'));
+  return deepMerge(seed, saved);
 }
 function saveContent(c) {
   fs.writeFileSync(CONTENT_FILE, JSON.stringify(c, null, 2));
@@ -97,6 +114,10 @@ pages.forEach(p => {
 // Alte Wix-URLs weiterleiten
 app.get('/anreiseinfos', (req, res) => res.redirect(301, '/anreise'));
 app.get('/links', (req, res) => res.redirect(301, '/sommer'));
+
+// Rechtsseiten
+app.get('/impressum', (req, res) => res.render('impressum', { c: loadContent(), page: '/impressum' }));
+app.get('/datenschutz', (req, res) => res.render('datenschutz', { c: loadContent(), page: '/datenschutz' }));
 
 app.get('/anfrage', (req, res) => {
   const c = loadContent();
