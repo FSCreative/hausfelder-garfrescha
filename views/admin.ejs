@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin | Haus Felder Garfrescha</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="admin-body">
@@ -22,7 +22,7 @@
   <%
     const sectionNames = {
       site: 'Allgemein', home: 'Startseite', wohnung: 'Wohnung', anreise: 'Anreise',
-      sommer: 'Sommer', winter: 'Winter', kontakt: 'Kontakt'
+      sommer: 'Sommer', winter: 'Winter', kontakt: 'Kontakt', rechtliches: 'Rechtliches'
     };
     const fieldLabels = {
       name: 'Name', tagline: 'Slogan', phone: 'Telefon', email: 'E-Mail', facebook: 'Facebook-URL', instagram: 'Instagram-URL',
@@ -35,7 +35,8 @@
       winterText: 'Text Winter', winterSkidoo: 'Skidoo-Hinweis', winterCheckin: 'Check-in Winter', winterCheckout: 'Check-out Winter',
       aktivitaeten: 'Aktivitäten (1 Zeile = 1 Punkt)', linksText: 'Text über den Links',
       buchbarText: 'Text „buchbar unter“', ausgebuchtText: 'Text „Ausgebucht“',
-      empfehlung1: 'Empfehlung 1', empfehlung2: 'Empfehlung 2', talText: 'Text „Urlaub im Tal“', tal1: 'Tal-Empfehlung 1', tal2: 'Tal-Empfehlung 2'
+      empfehlung1: 'Empfehlung 1', empfehlung2: 'Empfehlung 2', talText: 'Text „Urlaub im Tal“', tal1: 'Tal-Empfehlung 1', tal2: 'Tal-Empfehlung 2',
+      betreiber: 'Betreiberin (Impressum)', unternehmensgegenstand: 'Unternehmensgegenstand', adresse: 'Anschrift (Impressum)', uid: 'UID-Nummer (optional)'
     };
     const galleryNames = { wohnung: 'Wohnung', sommer: 'Sommer', winter: 'Winter' };
   %>

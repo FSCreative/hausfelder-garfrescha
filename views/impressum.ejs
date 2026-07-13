@@ -1,0 +1,31 @@
+<%- include('partials/header', { title: 'Impressum' }) %>
+
+<section class="section legal" style="padding-top:8rem">
+  <div class="container narrow">
+    <h1>Impressum</h1>
+    <p class="legal-meta">Informationspflicht laut § 5 E-Commerce-Gesetz und Offenlegungspflicht laut § 25 Mediengesetz</p>
+
+    <h2>Medieninhaberin und Betreiberin der Website</h2>
+    <p>
+      <strong><%= c.rechtliches.betreiber %></strong><br>
+      <%= c.rechtliches.unternehmensgegenstand %><br>
+      <%= c.rechtliches.adresse %>
+    </p>
+    <p>
+      Telefon: <a href="tel:<%= c.site.phone.replace(/\s+/g, '') %>"><%= c.site.phone %></a><br>
+      E-Mail: <a href="mailto:<%= c.site.email %>"><%= c.site.email %></a>
+      <% if (c.rechtliches.uid) { %><br>UID-Nummer: <%= c.rechtliches.uid %><% } %>
+    </p>
+
+    <h2>Verbraucherstreitbeilegung</h2>
+    <p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen. Beschwerden können direkt an die oben angeführte E-Mail-Adresse gerichtet werden.</p>
+
+    <h2>Haftung für Links</h2>
+    <p>Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter verantwortlich.</p>
+
+    <h2>Urheberrecht</h2>
+    <p>Die Inhalte dieser Website (Texte, Fotos, Grafiken) unterliegen dem Urheberrecht. Eine Verwendung außerhalb dieser Website bedarf der vorherigen Zustimmung.</p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
