@@ -8,7 +8,8 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-kicker">Ferienwohnung · Garfrescha · Silvretta Montafon</p>
-    <h1><%= c.home.heroTitle %></h1>
+    <h1 class="sr-only"><%= c.home.heroTitle %></h1>
+    <img src="/images/logo-white.png" alt="<%= c.home.heroTitle %>" class="hero-logo">
     <p class="hero-sub">„<%= c.home.heroSubtitle.replace(/^"|"$/g, '') %>“</p>
     <div class="hero-actions">
       <a href="/anfrage" class="btn btn-accent btn-lg">Jetzt anfragen</a>
