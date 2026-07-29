@@ -7,14 +7,19 @@
   <meta name="description" content="Gönn' dir eine Auszeit auf 1.500 Höhenmeter! Ferienwohnung in Garfrescha, mitten im Skigebiet Silvretta Montafon – Urlaub in der charakteristisch schönen Maisäß-Landschaft.">
   <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="icon" href="/images/logo.png" type="image/png">
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+  <style>
+    .brand-logo { height: 54px; width: auto; display: block; }
+    .footer-logo { width: 150px; height: auto; margin-bottom: .8rem; }
+    @media (max-width: 860px) { .brand-logo { height: 44px; } }
+  </style>
 </head>
 <body>
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
     <a href="/" class="brand">
-      <svg class="brand-icon" viewBox="0 0 48 32" aria-hidden="true"><path d="M2 30 L16 6 L24 18 L30 8 L46 30 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/><path d="M13 11 L16 6 L19 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
-      <span><%= c.site.name %></span>
+      <img src="/images/logo-white.png" alt="<%= c.site.name %>" class="brand-logo">
     </a>
     <nav class="main-nav" id="mainNav">
       <a href="/" class="<%= page === '/' ? 'active' : '' %>">Home</a>
