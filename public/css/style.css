@@ -16,6 +16,25 @@
   --font-body: 'Outfit', system-ui, sans-serif;
 }
 
+/* Cookie-Banner (FS Consent) im Design der Seite */
+:root {
+  --fsc-bg: #f7f3ec;
+  --fsc-fg: #2e2822;
+  --fsc-muted: #5d534a;
+  --fsc-accent: #e08a5e;
+  --fsc-accent-fg: #2e2822;
+  --fsc-border: rgba(53, 46, 40, .14);
+  --fsc-link: #2e2822;
+  --fsc-radius: 14px;
+  --fsc-btn-radius: 999px;
+  --fsc-font: 'Outfit', system-ui, sans-serif;
+  --fsc-font-size: 16px;
+  --fsc-heading-font: 'Fraunces', Georgia, serif;
+  --fsc-heading-weight: 600;
+  --fsc-btn-weight: 500;
+  --fsc-shadow: 0 10px 30px rgba(53, 46, 40, .22);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
