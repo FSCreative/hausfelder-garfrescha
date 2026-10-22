@@ -1,37 +1,37 @@
 <%- include('partials/header', { title: 'Winter' }) %>
 
-<section class="page-hero" style="background-image:url('/images/winter-01.jpg')">
+<section class="page-hero" data-ez-bg="bild.winter.hero" style="background-image:url('<%= ez.bild('bild.winter.hero', '/images/winter-01.jpg') %>')">
   <div class="hero-overlay"></div>
   <div class="page-hero-content">
-    <h1><%= c.winter.title %></h1>
+    <h1 data-ez="winter.title"><%- ez.t('winter.title') %></h1>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="aktivitaeten">
   <div class="container narrow reveal">
-    <p class="lead"><%= c.winter.introText %></p>
+    <p class="lead" data-ez="winter.introText"><%- ez.t('winter.introText') %></p>
   </div>
   <div class="container activities reveal">
-    <% c.winter.aktivitaeten.forEach(a => { %>
-      <div class="activity"><span>❄</span><%= a %></div>
+    <% ez.liste('winter.aktivitaeten').forEach(e => { %>
+      <div class="activity"><span>❄</span><span class="activity-text<%= e.leer ? ' ez-platz' : '' %>" data-ez="<%= e.k %>"><%- e.html %></span></div>
     <% }) %>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt" id="impressionen">
   <div class="container">
-    <h2 class="section-title reveal">Winter-Impressionen</h2>
+    <h2 class="section-title reveal" data-ez="winter.galerieTitel"><%- ez.t('winter.galerieTitel', 'Winter-Impressionen') %></h2>
     <div class="gallery gallery-wide reveal">
-      <% c.galleries.winter.forEach((src, i) => { %>
-        <figure class="gallery-item"><img src="<%= src %>" alt="Winter Bild <%= i + 1 %>" loading="lazy" data-lightbox="winter"></figure>
+      <% ez.galerie('winter').forEach(b => { %>
+        <figure class="gallery-item<%= b.leer ? ' ez-platz-leer' : '' %>"><img src="<%= b.src %>" alt="Winter Bild <%= b.nr %>" loading="lazy" data-lightbox="winter" data-ez-img="<%= b.k %>"></figure>
       <% }) %>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="links">
   <div class="container narrow center reveal">
-    <p class="lead"><%= c.winter.linksText %></p>
+    <p class="lead" data-ez="winter.linksText"><%- ez.t('winter.linksText') %></p>
     <div class="link-buttons">
       <a href="http://www.garfrescha1500.at" target="_blank" rel="noopener" class="btn btn-outline">Garfrescha 1500</a>
       <a href="https://www.montafon.at/de" target="_blank" rel="noopener" class="btn btn-outline">Montafon</a>

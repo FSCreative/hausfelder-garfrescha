@@ -1,18 +1,18 @@
 <%- include('partials/header', { title: 'Anfrage' }) %>
 
-<section class="page-hero" style="background-image:url('/images/sommer-04.jpg')">
+<section class="page-hero" data-ez-bg="bild.anfrage.hero" style="background-image:url('<%= ez.bild('bild.anfrage.hero', '/images/sommer-04.jpg') %>')">
   <div class="hero-overlay"></div>
   <div class="page-hero-content">
-    <h1>Unverbindliche Anfrage</h1>
+    <h1 data-ez="anfrage.title"><%- ez.t('anfrage.title', 'Unverbindliche Anfrage') %></h1>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="formular">
   <div class="container narrow">
     <div class="success-box reveal" id="mailHint" hidden>
       <h2>Fast geschafft! ✉</h2>
       <p>Dein E-Mail-Programm hat sich mit der fertigen Anfrage geöffnet – bitte dort noch auf <strong>Senden</strong> klicken.</p>
-      <p class="form-note">Kein Fenster aufgegangen? Dann schreib uns direkt an <a href="mailto:<%= c.site.email %>"><%= c.site.email %></a></p>
+      <p class="form-note">Kein Fenster aufgegangen? Dann schreib uns direkt an <a href="mailto:<%= ez.text('global.site.email') %>"><%= ez.text('global.site.email') %></a></p>
       <a href="/" class="btn btn-outline">Zurück zur Startseite</a>
     </div>
 
@@ -65,7 +65,7 @@ ${f.nachricht.value || '-'}
 
 Liebe Grüße
 ${f.name.value}`;
-    window.location.href = 'mailto:<%= c.site.email %>?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = <%- JSON.stringify('mailto:' + ez.text('global.site.email') + '?subject=').replace(/</g, '\\u003c') %> + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     document.getElementById('mailHint').hidden = false;
     document.getElementById('mailHint').classList.add('visible');
     f.scrollIntoView === undefined || document.getElementById('mailHint').scrollIntoView({ behavior: 'smooth', block: 'center' });

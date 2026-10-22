@@ -1,16 +1,26 @@
-/* Haus Felder Garfrescha – Express Server */
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const crypto = require('crypto');
-const multer = require('multer');
-const nodemailer = require('nodemailer');
+/* Haus Felder Garfrescha – Express Server
+   Inhalte bearbeitet die Inhaberin im FS Creative Websitebuilder (/website),
+   erreichbar per Single-Sign-On aus VALUERO Partner (oder EDITOR_PASSWORT).
+   Siehe README.md → „Websitebuilder“. */
+import express from 'express';
+import path from 'node:path';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+import multer from 'multer';
+import nodemailer from 'nodemailer';
+import { mountBuilder, ladeKonfiguration } from 'ez-websitebuilder';
+import { einfacheAnmeldung } from 'ez-websitebuilder/anmeldung.js';
+import { deepMerge, flach, migrieren, istMigriert, vorlagenHilfen } from './lib/inhalte.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.set('trust proxy', 1); /* Railway: https hinter dem Proxy (Secure-Cookie) */
 
 /* ---------- Daten-Verzeichnis (Railway Volume) ---------- */
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
+process.env.DATA_DIR = DATA_DIR; /* Builder-Ablage (builder.json) liegt ebenfalls hier */
 const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
 const CONTENT_FILE = path.join(DATA_DIR, 'content.json');
 const SEED_FILE = path.join(__dirname, 'content', 'content.json');
@@ -20,31 +30,40 @@ if (!fs.existsSync(CONTENT_FILE)) {
   fs.copyFileSync(SEED_FILE, CONTENT_FILE);
 }
 
-/* Seed-Inhalte mit gespeicherten Inhalten zusammenführen,
-   damit neue Felder nach Updates automatisch verfügbar sind */
-function deepMerge(base, override) {
-  if (Array.isArray(base)) return Array.isArray(override) ? override : base;
-  if (typeof base !== 'object' || base === null) return override !== undefined ? override : base;
-  const out = {};
-  for (const k of Object.keys(base)) {
-    out[k] = override && k in override ? deepMerge(base[k], override[k]) : base[k];
-  }
-  if (override) {
-    for (const k of Object.keys(override)) if (!(k in base)) out[k] = override[k];
-  }
-  return out;
-}
-
+/* Seed-Inhalte mit gespeicherten Inhalten (alter Admin) zusammenführen –
+   das sind die Standardwerte, über die der Websitebuilder seine Werte legt. */
 function loadContent() {
   const seed = JSON.parse(fs.readFileSync(SEED_FILE, 'utf8'));
-  const saved = JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf8'));
-  return deepMerge(seed, saved);
+  try {
+    return deepMerge(seed, JSON.parse(fs.readFileSync(CONTENT_FILE, 'utf8')));
+  } catch (err) {
+    console.error('content.json nicht lesbar – es gelten die Standardinhalte:', err.message);
+    return seed;
+  }
 }
 function saveContent(c) {
   fs.writeFileSync(CONTENT_FILE, JSON.stringify(c, null, 2));
 }
 
-/* ---------- Admin-Auth ---------- */
+/* ---------- Websitebuilder: Ablage, einmalige Übernahme, Anmeldung ---------- */
+/* Erst jetzt laden: die Ablage liest DATA_DIR beim Import (JSON-Datei DATA_DIR/builder.json,
+   mit DATABASE_URL stattdessen Postgres). */
+const store = await import('ez-websitebuilder/store.js');
+await store.init();
+let migriert = false;
+try {
+  await migrieren({ store, seedDatei: SEED_FILE, inhaltDatei: CONTENT_FILE });
+  migriert = await istMigriert(store);
+} catch (err) {
+  console.error('[migration] Übernahme aus content.json fehlgeschlagen – alter Admin bleibt aktiv:', err.message);
+}
+
+const config = ladeKonfiguration(path.join(__dirname, 'site.config.json'));
+/* Anmeldung: Single-Sign-On aus VALUERO Partner (EZ_ZENTRALE_URL, EZ_SITE_ID,
+   EZ_SITE_KEY, Link mit ?ezz=…) und/oder EDITOR_PASSWORT unter /login. */
+const anmeldung = einfacheAnmeldung({ config, name: config.name });
+
+/* ---------- Admin-Auth (alter Admin, nur bis zur Übernahme) ---------- */
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'garfrescha';
 const SECRET = process.env.SESSION_SECRET || crypto.createHash('sha256').update('hfg:' + ADMIN_PASSWORD).digest('hex');
 
@@ -73,7 +92,7 @@ function requireAdmin(req, res, next) {
   res.redirect('/admin/login');
 }
 
-/* ---------- Uploads ---------- */
+/* ---------- Uploads (alter Admin) ---------- */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOAD_DIR),
   filename: (req, file, cb) => {
@@ -91,51 +110,80 @@ const upload = multer({
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
+
+/* Websitebuilder: SSO/Login, Editor (/website), APIs, /builder/… – die Seiten
+   selbst rendert weiterhin EJS (seitenAusliefern: false). */
+anmeldung.einbinden(app);
+const builder = mountBuilder(app, {
+  config,
+  store,
+  requireStaff: anmeldung.requireStaff,
+  publicDir: path.join(__dirname, 'public'),
+  seitenAusliefern: false
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/media', express.static(UPLOAD_DIR));
 
+/* Daten für jede Seite: Standardinhalte (c) + Builder-Hilfen (ez).
+   Nach der Übernahme ist die Builder-Ablage die einzige Quelle für Änderungen:
+   Standard ist dann nur noch content/content.json aus dem Repository
+   (DATA_DIR/content.json bleibt als Sicherung liegen, wird aber nicht mehr gelesen).
+   Ohne Übernahme (Fehler) gilt wie bisher Seed + DATA_DIR/content.json. */
+function standardInhalte() {
+  return migriert ? JSON.parse(fs.readFileSync(SEED_FILE, 'utf8')) : loadContent();
+}
+async function seitenDaten(req, slug) {
+  const c = standardInhalte();
+  let felder = {};
+  try { felder = await builder.felderFuer(slug); } catch (err) { console.error('Builder-Inhalte nicht lesbar:', err.message); }
+  const ez = vorlagenHilfen({ standardWerte: flach(c), felder, edit: req.query.edit === '1' });
+  ez.fassung = builder.fassung;
+  return { c, ez };
+}
+const seite = (view, slug, extra = {}) => async (req, res, next) => {
+  try {
+    res.set('Cache-Control', 'no-cache');
+    res.render(view, { ...(await seitenDaten(req, slug)), ...extra });
+  } catch (err) { next(err); }
+};
+
 /* ---------- Seiten ---------- */
 const pages = [
-  { url: '/', view: 'home', nav: 'Home' },
-  { url: '/wohnung', view: 'wohnung', nav: 'Wohnung' },
-  { url: '/anreise', view: 'anreise', nav: 'Anreise' },
-  { url: '/sommer', view: 'sommer', nav: 'Sommer' },
-  { url: '/winter', view: 'winter', nav: 'Winter' },
-  { url: '/kontakt', view: 'kontakt', nav: 'Kontakt' }
+  { url: '/', view: 'home', slug: 'index' },
+  { url: '/wohnung', view: 'wohnung', slug: 'wohnung' },
+  { url: '/anreise', view: 'anreise', slug: 'anreise' },
+  { url: '/sommer', view: 'sommer', slug: 'sommer' },
+  { url: '/winter', view: 'winter', slug: 'winter' },
+  { url: '/kontakt', view: 'kontakt', slug: 'kontakt' }
 ];
 
-pages.forEach(p => {
-  app.get(p.url, (req, res) => {
-    const c = loadContent();
-    res.render(p.view, { c, page: p.url, sent: null });
-  });
-});
+pages.forEach(p => app.get(p.url, seite(p.view, p.slug, { page: p.url, sent: null })));
 
 // Alte Wix-URLs weiterleiten
 app.get('/anreiseinfos', (req, res) => res.redirect(301, '/anreise'));
 app.get('/links', (req, res) => res.redirect(301, '/sommer'));
 
 // Rechtsseiten
-app.get('/impressum', (req, res) => res.render('impressum', { c: loadContent(), page: '/impressum' }));
-app.get('/datenschutz', (req, res) => res.render('datenschutz', { c: loadContent(), page: '/datenschutz' }));
+app.get('/impressum', seite('impressum', 'impressum', { page: '/impressum' }));
+app.get('/datenschutz', seite('datenschutz', 'datenschutz', { page: '/datenschutz' }));
 
-app.get('/anfrage', (req, res) => {
-  const c = loadContent();
-  res.render('anfrage', { c, page: '/anfrage', sent: null, error: null, form: {} });
-});
+app.get('/anfrage', seite('anfrage', 'anfrage', { page: '/anfrage', sent: null, error: null, form: {} }));
 
 /* ---------- Anfrage per SMTP ---------- */
-app.post('/anfrage', async (req, res) => {
-  const c = loadContent();
-  const f = req.body || {};
-  if (f.website) return res.redirect('/anfrage'); // Honeypot
+app.post('/anfrage', async (req, res, next) => {
+  try {
+    const daten = await seitenDaten(req, 'anfrage');
+    const email = daten.ez.text('global.site.email');
+    const f = req.body || {};
+    if (f.website) return res.redirect('/anfrage'); // Honeypot
 
-  const required = ['name', 'email', 'anreise', 'abreise', 'personen'];
-  if (required.some(k => !f[k] || !String(f[k]).trim())) {
-    return res.status(400).render('anfrage', { c, page: '/anfrage', sent: false, error: 'Bitte alle Pflichtfelder ausfüllen.', form: f });
-  }
+    const required = ['name', 'email', 'anreise', 'abreise', 'personen'];
+    if (required.some(k => !f[k] || !String(f[k]).trim())) {
+      return res.status(400).render('anfrage', { ...daten, page: '/anfrage', sent: false, error: 'Bitte alle Pflichtfelder ausfüllen.', form: f });
+    }
 
-  const text =
+    const text =
 `Neue Anfrage über hausfelder-garfrescha.com
 
 Name:     ${f.name}
@@ -148,32 +196,41 @@ Personen: ${f.personen}
 Nachricht:
 ${f.nachricht || '-'}`;
 
-  try {
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: Number(process.env.SMTP_PORT) === 465,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-    });
-    await transporter.sendMail({
-      from: `"Website Haus Felder" <${process.env.SMTP_USER}>`,
-      to: process.env.MAIL_TO || c.site.email,
-      replyTo: f.email,
-      subject: `Anfrage ${f.anreise} – ${f.abreise} (${f.personen} Pers.) von ${f.name}`,
-      text
-    });
-    res.render('anfrage', { c, page: '/anfrage', sent: true, error: null, form: {} });
-  } catch (err) {
-    console.error('Mailversand fehlgeschlagen:', err.message);
-    res.status(500).render('anfrage', {
-      c, page: '/anfrage', sent: false,
-      error: 'Die Anfrage konnte leider nicht gesendet werden. Bitte kontaktiere uns direkt per E-Mail an ' + c.site.email,
-      form: f
-    });
-  }
+    try {
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT || 587),
+        secure: Number(process.env.SMTP_PORT) === 465,
+        auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
+      });
+      await transporter.sendMail({
+        from: `"Website Haus Felder" <${process.env.SMTP_USER}>`,
+        to: process.env.MAIL_TO || email,
+        replyTo: f.email,
+        subject: `Anfrage ${f.anreise} – ${f.abreise} (${f.personen} Pers.) von ${f.name}`,
+        text
+      });
+      res.render('anfrage', { ...daten, page: '/anfrage', sent: true, error: null, form: {} });
+    } catch (err) {
+      console.error('Mailversand fehlgeschlagen:', err.message);
+      res.status(500).render('anfrage', {
+        ...daten, page: '/anfrage', sent: false,
+        error: 'Die Anfrage konnte leider nicht gesendet werden. Bitte kontaktiere uns direkt per E-Mail an ' + email,
+        form: f
+      });
+    }
+  } catch (err) { next(err); }
 });
 
-/* ---------- Admin ---------- */
+/* ---------- Alter Admin ----------
+   Nach erfolgreicher Übernahme in den Websitebuilder führt /admin zum Editor
+   (/website) – Änderungen im alten Admin würden sonst vom Builder überdeckt.
+   Ist die Übernahme fehlgeschlagen, bleibt der alte Admin wie bisher nutzbar. */
+app.use('/admin', (req, res, next) => {
+  if (!migriert) return next();
+  res.redirect(req.method === 'GET' ? 302 : 303, config.editor?.pfad || '/website');
+});
+
 app.get('/admin/login', (req, res) => {
   if (verify(parseCookies(req).hfg_admin)) return res.redirect('/admin');
   res.render('admin-login', { error: null });
@@ -261,9 +318,10 @@ app.post('/admin/move-image', requireAdmin, (req, res) => {
   res.redirect('/admin?saved=1#fotos');
 });
 
-app.use((req, res) => {
-  const c = loadContent();
-  res.status(404).render('404', { c, page: '' });
+app.use(async (req, res, next) => {
+  try {
+    res.status(404).render('404', { ...(await seitenDaten(req, '404')), page: '' });
+  } catch (err) { next(err); }
 });
 
 app.listen(PORT, () => console.log(`Haus Felder Garfrescha läuft auf Port ${PORT}`));

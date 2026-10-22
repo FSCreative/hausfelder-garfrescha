@@ -7,14 +7,14 @@
 
     <h2>Medieninhaberin und Betreiberin der Website</h2>
     <p>
-      <strong><%= c.rechtliches.betreiber %></strong><br>
-      <%= c.rechtliches.unternehmensgegenstand %><br>
-      <%= c.rechtliches.adresse %>
+      <strong data-ez="global.rechtliches.betreiber"><%- ez.t('global.rechtliches.betreiber') %></strong><br>
+      <span data-ez="global.rechtliches.unternehmensgegenstand"><%- ez.t('global.rechtliches.unternehmensgegenstand') %></span><br>
+      <span data-ez="global.rechtliches.adresse"><%- ez.t('global.rechtliches.adresse') %></span>
     </p>
     <p>
-      Telefon: <a href="tel:<%= c.site.phone.replace(/\s+/g, '') %>"><%= c.site.phone %></a><br>
-      E-Mail: <a href="mailto:<%= c.site.email %>"><%= c.site.email %></a>
-      <% if (c.rechtliches.uid) { %><br>UID-Nummer: <%= c.rechtliches.uid %><% } %>
+      Telefon: <a href="tel:<%= ez.text('global.site.phone').replace(/\s+/g, '') %>"><span data-ez="global.site.phone"><%- ez.t('global.site.phone') %></span></a><br>
+      E-Mail: <a href="mailto:<%= ez.text('global.site.email') %>"><span data-ez="global.site.email"><%- ez.t('global.site.email') %></span></a>
+      <% if (ez.text('global.rechtliches.uid') || ez.edit) { %><br>UID-Nummer: <span data-ez="global.rechtliches.uid"><%- ez.t('global.rechtliches.uid') %></span><% } %>
     </p>
 
     <h2>Verbraucherstreitbeilegung</h2>

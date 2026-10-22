@@ -1,0 +1,20 @@
+{
+  "name": "Haus Felder Garfrescha",
+  "seiten": [
+    { "slug": "index", "pfad": "/", "titel": "Startseite" },
+    { "slug": "wohnung", "pfad": "/wohnung", "titel": "Wohnung" },
+    { "slug": "anreise", "pfad": "/anreise", "titel": "Anreise" },
+    { "slug": "sommer", "pfad": "/sommer", "titel": "Sommer" },
+    { "slug": "winter", "pfad": "/winter", "titel": "Winter" },
+    { "slug": "kontakt", "pfad": "/kontakt", "titel": "Kontakt" },
+    { "slug": "anfrage", "pfad": "/anfrage", "titel": "Anfrage" },
+    { "slug": "impressum", "pfad": "/impressum", "titel": "Impressum" }
+  ],
+  "editor": {
+    "pfad": "/website",
+    "titel": "Website bearbeiten",
+    "zurueck": { "text": "Website", "link": "/" },
+    "login": "/login"
+  },
+  "formulare": { "an": "hausfelder.garfrescha@gmail.com" }
+}

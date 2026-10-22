@@ -1,37 +1,37 @@
 <%- include('partials/header', { title: 'Sommer' }) %>
 
-<section class="page-hero" style="background-image:url('/images/sommer-01.jpg')">
+<section class="page-hero" data-ez-bg="bild.sommer.hero" style="background-image:url('<%= ez.bild('bild.sommer.hero', '/images/sommer-01.jpg') %>')">
   <div class="hero-overlay"></div>
   <div class="page-hero-content">
-    <h1><%= c.sommer.title %></h1>
+    <h1 data-ez="sommer.title"><%- ez.t('sommer.title') %></h1>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="aktivitaeten">
   <div class="container narrow reveal">
-    <p class="lead"><%= c.sommer.introText %></p>
+    <p class="lead" data-ez="sommer.introText"><%- ez.t('sommer.introText') %></p>
   </div>
   <div class="container activities reveal">
-    <% c.sommer.aktivitaeten.forEach(a => { %>
-      <div class="activity"><span>🌿</span><%= a %></div>
+    <% ez.liste('sommer.aktivitaeten').forEach(e => { %>
+      <div class="activity"><span>🌿</span><span class="activity-text<%= e.leer ? ' ez-platz' : '' %>" data-ez="<%= e.k %>"><%- e.html %></span></div>
     <% }) %>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt" id="impressionen">
   <div class="container">
-    <h2 class="section-title reveal">Sommer-Impressionen</h2>
+    <h2 class="section-title reveal" data-ez="sommer.galerieTitel"><%- ez.t('sommer.galerieTitel', 'Sommer-Impressionen') %></h2>
     <div class="gallery gallery-wide reveal">
-      <% c.galleries.sommer.forEach((src, i) => { %>
-        <figure class="gallery-item"><img src="<%= src %>" alt="Sommer Bild <%= i + 1 %>" loading="lazy" data-lightbox="sommer"></figure>
+      <% ez.galerie('sommer').forEach(b => { %>
+        <figure class="gallery-item<%= b.leer ? ' ez-platz-leer' : '' %>"><img src="<%= b.src %>" alt="Sommer Bild <%= b.nr %>" loading="lazy" data-lightbox="sommer" data-ez-img="<%= b.k %>"></figure>
       <% }) %>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="links">
   <div class="container narrow center reveal">
-    <p class="lead"><%= c.sommer.linksText %></p>
+    <p class="lead" data-ez="sommer.linksText"><%- ez.t('sommer.linksText') %></p>
     <div class="link-buttons">
       <a href="http://www.garfrescha1500.at" target="_blank" rel="noopener" class="btn btn-outline">Garfrescha 1500</a>
       <a href="https://www.montafon.at/de" target="_blank" rel="noopener" class="btn btn-outline">Montafon</a>

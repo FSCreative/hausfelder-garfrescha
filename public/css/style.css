@@ -442,3 +442,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .check-times { flex-direction: column; }
   .footer-bottom { flex-direction: column; gap: .4rem; }
 }
+
+/* ---------- FS Creative Websitebuilder ---------- */
+:root {
+  --ez-akzent: var(--salmon);
+  --ez-titelschrift: var(--font-display);
+  --ez-textschrift: var(--font-body);
+  --ez-text: var(--ink);
+  --ez-tinte: var(--ink);
+  --ez-radius: 999px;
+}
+.activity span.activity-text { font-size: inherit; }
+/* Freie Plätze für weitere Listeneinträge – nur im Editor sichtbar */
+body.ez-edit .ez-platz:empty::before { content: '+ weiterer Eintrag'; opacity: .45; font-style: italic; }
+body.ez-edit .ez-platz-leer { opacity: .6; }

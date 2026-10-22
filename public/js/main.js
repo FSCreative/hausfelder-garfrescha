@@ -75,6 +75,8 @@
 
     document.querySelectorAll('img[data-lightbox]').forEach(img => {
       img.addEventListener('click', () => {
+        // Im Websitebuilder-Editor wählt ein Klick das Bild aus – keine Lightbox
+        if (document.body.classList.contains('ez-edit')) return;
         const imgs = Array.from(document.querySelectorAll(`img[data-lightbox="${img.dataset.lightbox}"]`));
         open(imgs, imgs.indexOf(img));
       });

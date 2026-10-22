@@ -1,47 +1,47 @@
 <%- include('partials/header', { title: 'Anreise' }) %>
 
-<section class="page-hero" style="background-image:url('/images/sommer-04.jpg')">
+<section class="page-hero" data-ez-bg="bild.anreise.hero" style="background-image:url('<%= ez.bild('bild.anreise.hero', '/images/sommer-04.jpg') %>')">
   <div class="hero-overlay"></div>
   <div class="page-hero-content">
-    <h1><%= c.anreise.title %></h1>
+    <h1 data-ez="anreise.title"><%- ez.t('anreise.title') %></h1>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="anreise">
   <div class="container narrow reveal">
-    <p class="lead">Infos sind auch ersichtlich unter <a href="http://www.garfrescha1500.at" target="_blank" rel="noopener">garfrescha1500.at</a></p>
+    <p class="lead" data-ez="anreise.hinweisLink"><%- ez.t('anreise.hinweisLink', 'Infos sind auch ersichtlich unter <a href="http://www.garfrescha1500.at" target="_blank" rel="noopener">garfrescha1500.at</a>') %></p>
   </div>
 
   <div class="container cols-2">
     <div class="panel season-panel reveal">
       <div class="season-head sun">
-        <h3>☀ Im Sommer</h3>
+        <h3 data-ez="anreise.sommerTitel"><%- ez.t('anreise.sommerTitel', '☀ Im Sommer') %></h3>
       </div>
-      <p><%= c.anreise.sommerText %></p>
-      <div class="alert">⚠ <%= c.anreise.sommerAchtung %></div>
+      <p data-ez="anreise.sommerText"><%- ez.t('anreise.sommerText') %></p>
+      <div class="alert">⚠ <span data-ez="anreise.sommerAchtung"><%- ez.t('anreise.sommerAchtung') %></span></div>
       <div class="check-times">
-        <div><strong>Check-in</strong><span><%= c.anreise.sommerCheckin %></span></div>
-        <div><strong>Check-out</strong><span><%= c.anreise.sommerCheckout %></span></div>
+        <div><strong>Check-in</strong><span data-ez="anreise.sommerCheckin"><%- ez.t('anreise.sommerCheckin') %></span></div>
+        <div><strong>Check-out</strong><span data-ez="anreise.sommerCheckout"><%- ez.t('anreise.sommerCheckout') %></span></div>
       </div>
-      <img src="/images/anreise-sommer.jpg" alt="Anreise im Sommer" loading="lazy" data-lightbox="anreise">
+      <img src="<%= ez.bild('bild.anreise.sommer', '/images/anreise-sommer.jpg') %>" alt="Anreise im Sommer" loading="lazy" data-lightbox="anreise" data-ez-img="bild.anreise.sommer">
     </div>
 
     <div class="panel season-panel reveal">
       <div class="season-head snow">
-        <h3>❄ Im Winter</h3>
+        <h3 data-ez="anreise.winterTitel"><%- ez.t('anreise.winterTitel', '❄ Im Winter') %></h3>
       </div>
-      <p><%= c.anreise.winterText %></p>
-      <p><%= c.anreise.winterSkidoo %></p>
+      <p data-ez="anreise.winterText"><%- ez.t('anreise.winterText') %></p>
+      <p data-ez="anreise.winterSkidoo"><%- ez.t('anreise.winterSkidoo') %></p>
       <div class="check-times">
-        <div><strong>Check-in</strong><span><%= c.anreise.winterCheckin %></span></div>
-        <div><strong>Check-out</strong><span><%= c.anreise.winterCheckout %></span></div>
+        <div><strong>Check-in</strong><span data-ez="anreise.winterCheckin"><%- ez.t('anreise.winterCheckin') %></span></div>
+        <div><strong>Check-out</strong><span data-ez="anreise.winterCheckout"><%- ez.t('anreise.winterCheckout') %></span></div>
       </div>
-      <img src="/images/anreise-winter.jpg" alt="Anreise im Winter" loading="lazy" data-lightbox="anreise">
+      <img src="<%= ez.bild('bild.anreise.winter', '/images/anreise-winter.jpg') %>" alt="Anreise im Winter" loading="lazy" data-lightbox="anreise" data-ez-img="bild.anreise.winter">
     </div>
   </div>
 
   <div class="container center reveal">
-    <a href="/anfrage" class="btn btn-accent btn-lg">Anreise ankündigen &amp; anfragen</a>
+    <a href="<%= ez.link('anreise.knopfAnfrage', '/anfrage') %>" class="btn btn-accent btn-lg" data-ez="anreise.knopfAnfrage"><%- ez.t('anreise.knopfAnfrage', 'Anreise ankündigen &amp; anfragen') %></a>
   </div>
 </section>
 

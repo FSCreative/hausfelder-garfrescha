@@ -2,18 +2,18 @@
 
 <section class="hero" id="hero">
   <div class="hero-bg">
-    <img id="heroWinter" src="/images/winter-03.jpg" alt="Garfrescha im Winter" class="active">
-    <img id="heroSommer" src="/images/sommer-01.jpg" alt="Garfrescha im Sommer">
+    <img id="heroWinter" src="<%= ez.bild('bild.home.heroWinter', '/images/winter-03.jpg') %>" alt="Garfrescha im Winter" class="active" data-ez-img="bild.home.heroWinter">
+    <img id="heroSommer" src="<%= ez.bild('bild.home.heroSommer', '/images/sommer-01.jpg') %>" alt="Garfrescha im Sommer" data-ez-img="bild.home.heroSommer">
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-kicker">Ferienwohnung · Garfrescha · Silvretta Montafon</p>
-    <h1 class="sr-only"><%= c.home.heroTitle %></h1>
-    <img src="/images/logo-white.png" alt="<%= c.home.heroTitle %>" class="hero-logo">
-    <p class="hero-sub">„<%= c.home.heroSubtitle.replace(/^"|"$/g, '') %>“</p>
+    <p class="hero-kicker" data-ez="home.heroKicker"><%- ez.t('home.heroKicker', 'Ferienwohnung · Garfrescha · Silvretta Montafon') %></p>
+    <h1 class="sr-only"><%= ez.text('home.heroTitle') %></h1>
+    <img src="/images/logo-white.png" alt="<%= ez.text('home.heroTitle') %>" class="hero-logo">
+    <p class="hero-sub">„<span data-ez="home.heroSubtitle"><%- ez.t('home.heroSubtitle').replace(/^"|"$/g, '') %></span>“</p>
     <div class="hero-actions">
-      <a href="/anfrage" class="btn btn-accent btn-lg">Jetzt anfragen</a>
-      <a href="/wohnung" class="btn btn-ghost btn-lg">Wohnung entdecken</a>
+      <a href="<%= ez.link('home.knopfAnfrage', '/anfrage') %>" class="btn btn-accent btn-lg" data-ez="home.knopfAnfrage"><%- ez.t('home.knopfAnfrage', 'Jetzt anfragen') %></a>
+      <a href="<%= ez.link('home.knopfWohnung', '/wohnung') %>" class="btn btn-ghost btn-lg" data-ez="home.knopfWohnung"><%- ez.t('home.knopfWohnung', 'Wohnung entdecken') %></a>
     </div>
     <div class="season-toggle" role="group" aria-label="Jahreszeit wählen">
       <button class="season-btn active" data-season="winter">❄ Winter</button>
@@ -25,45 +25,45 @@
 
 <section class="section" id="intro">
   <div class="container narrow reveal">
-    <h2 class="section-title">Willkommen auf 1.500 Metern</h2>
-    <p class="lead"><%= c.home.introText %></p>
+    <h2 class="section-title" data-ez="home.introTitel"><%- ez.t('home.introTitel', 'Willkommen auf 1.500 Metern') %></h2>
+    <p class="lead" data-ez="home.introText"><%- ez.t('home.introText') %></p>
   </div>
   <div class="container facts reveal">
-    <div class="fact"><span class="fact-icon">⛰</span><%= c.home.factHoehe %></div>
-    <div class="fact"><span class="fact-icon">🛏</span><%= c.home.factPersonen %></div>
-    <div class="fact"><span class="fact-icon">⛷</span><%= c.home.factSki %></div>
-    <div class="fact"><span class="fact-icon">🏡</span><%= c.home.factBaujahr %></div>
+    <div class="fact"><span class="fact-icon">⛰</span><span data-ez="home.factHoehe"><%- ez.t('home.factHoehe') %></span></div>
+    <div class="fact"><span class="fact-icon">🛏</span><span data-ez="home.factPersonen"><%- ez.t('home.factPersonen') %></span></div>
+    <div class="fact"><span class="fact-icon">⛷</span><span data-ez="home.factSki"><%- ez.t('home.factSki') %></span></div>
+    <div class="fact"><span class="fact-icon">🏡</span><span data-ez="home.factBaujahr"><%- ez.t('home.factBaujahr') %></span></div>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt" id="entdecken">
   <div class="container cards-2">
     <a href="/wohnung" class="card card-img reveal">
-      <div class="card-media"><img src="/images/wohnung-01.jpg" alt="Unsere Berghütte" loading="lazy"></div>
+      <div class="card-media"><img src="<%= ez.bild('bild.home.karteWohnung', '/images/wohnung-01.jpg') %>" alt="Unsere Berghütte" loading="lazy" data-ez-img="bild.home.karteWohnung"></div>
       <div class="card-body">
-        <h3>Unsere Wohnung</h3>
-        <p><%= c.home.cardWohnungText %></p>
+        <h3 data-ez="home.karteWohnungTitel"><%- ez.t('home.karteWohnungTitel', 'Unsere Wohnung') %></h3>
+        <p data-ez="home.cardWohnungText"><%- ez.t('home.cardWohnungText') %></p>
         <span class="card-link">Erfahre mehr →</span>
       </div>
     </a>
     <a href="/anreise" class="card card-img reveal">
-      <div class="card-media"><img src="/images/home-huette-winter.jpg" alt="Anreise nach Garfrescha" loading="lazy"></div>
+      <div class="card-media"><img src="<%= ez.bild('bild.home.karteAnreise', '/images/home-huette-winter.jpg') %>" alt="Anreise nach Garfrescha" loading="lazy" data-ez-img="bild.home.karteAnreise"></div>
       <div class="card-body">
-        <h3>Infos zur Anreise</h3>
-        <p><%= c.home.cardAnreiseText %></p>
+        <h3 data-ez="home.karteAnreiseTitel"><%- ez.t('home.karteAnreiseTitel', 'Infos zur Anreise') %></h3>
+        <p data-ez="home.cardAnreiseText"><%- ez.t('home.cardAnreiseText') %></p>
         <span class="card-link">Erfahre mehr →</span>
       </div>
     </a>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="willkommen">
   <div class="container welcome reveal">
-    <img src="/images/home-familie.jpg" alt="Familie Felder" class="welcome-img">
+    <img src="<%= ez.bild('bild.home.familie', '/images/home-familie.jpg') %>" alt="Familie Felder" class="welcome-img" data-ez-img="bild.home.familie">
     <div>
-      <h2 class="section-title" style="text-align:left"><%= c.home.welcomeText %></h2>
-      <p>Deine Gastgeberin <strong><%= c.kontakt.name %></strong> und Familie heißen dich herzlich willkommen – ob Sommerfrische oder Skiurlaub direkt an der Piste.</p>
-      <a href="/kontakt" class="btn btn-outline">Kontakt aufnehmen</a>
+      <h2 class="section-title" style="text-align:left" data-ez="home.welcomeText"><%- ez.t('home.welcomeText') %></h2>
+      <p data-ez="home.welcomeIntro"><%- ez.t('home.welcomeIntro', 'Deine Gastgeberin <strong>' + ez.t('global.kontakt.name') + '</strong> und Familie heißen dich herzlich willkommen – ob Sommerfrische oder Skiurlaub direkt an der Piste.') %></p>
+      <a href="<%= ez.link('home.knopfKontakt', '/kontakt') %>" class="btn btn-outline" data-ez="home.knopfKontakt"><%- ez.t('home.knopfKontakt', 'Kontakt aufnehmen') %></a>
     </div>
   </div>
 </section>

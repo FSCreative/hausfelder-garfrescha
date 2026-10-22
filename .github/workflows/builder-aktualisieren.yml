@@ -1,0 +1,47 @@
+# Holt die neueste Fassung des FS Creative Websitebuilders (FSCreative/ez-websitebuilder)
+# und traegt sie in die package-lock.json ein. Railway spielt die Website
+# daraufhin automatisch neu auf.
+#   - laeuft alle 30 Minuten von selbst
+#   - sofort: Actions -> "Builder aktualisieren" -> "Run workflow"
+# Braucht keinen Schluessel: der Builder ist oeffentlich, und fuer den Commit
+# reicht die eingebaute Berechtigung dieses Repositorys.
+name: Builder aktualisieren
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: builder-aktualisieren
+  cancel-in-progress: false
+
+jobs:
+  aktualisieren:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Neueste Builder-Fassung eintragen
+        run: |
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund "github:FSCreative/ez-websitebuilder#main"
+
+      - name: Bei Aenderung speichern
+        run: |
+          if git diff --quiet -- package.json package-lock.json; then
+            echo "Builder ist aktuell."
+            exit 0
+          fi
+          FASSUNG=$(node -e "const l=require('./package-lock.json');console.log((l.packages['node_modules/ez-websitebuilder'].resolved||'').split('#')[1].slice(0,7))")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          git commit -m "Websitebuilder aktualisiert ($FASSUNG)"
+          git push

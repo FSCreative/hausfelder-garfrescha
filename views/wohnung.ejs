@@ -1,63 +1,63 @@
 <%- include('partials/header', { title: 'Wohnung' }) %>
 
-<section class="page-hero" style="background-image:url('/images/wohnung-01.jpg')">
+<section class="page-hero" data-ez-bg="bild.wohnung.hero" style="background-image:url('<%= ez.bild('bild.wohnung.hero', '/images/wohnung-01.jpg') %>')">
   <div class="hero-overlay"></div>
   <div class="page-hero-content">
-    <h1><%= c.wohnung.title %></h1>
+    <h1 data-ez="wohnung.title"><%- ez.t('wohnung.title') %></h1>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="einleitung">
   <div class="container narrow reveal">
-    <p class="lead"><%= c.wohnung.introText %></p>
+    <p class="lead" data-ez="wohnung.introText"><%- ez.t('wohnung.introText') %></p>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt" id="einblicke">
   <div class="container">
-    <h2 class="section-title reveal">Einblicke</h2>
+    <h2 class="section-title reveal" data-ez="wohnung.galerieTitel"><%- ez.t('wohnung.galerieTitel', 'Einblicke') %></h2>
     <div class="gallery reveal">
-      <% c.galleries.wohnung.forEach((src, i) => { %>
-        <figure class="gallery-item"><img src="<%= src %>" alt="Wohnung Bild <%= i + 1 %>" loading="lazy" data-lightbox="wohnung"></figure>
+      <% ez.galerie('wohnung').forEach(b => { %>
+        <figure class="gallery-item<%= b.leer ? ' ez-platz-leer' : '' %>"><img src="<%= b.src %>" alt="Wohnung Bild <%= b.nr %>" loading="lazy" data-lightbox="wohnung" data-ez-img="<%= b.k %>"></figure>
       <% }) %>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="ausstattung">
   <div class="container cols-2">
     <div class="panel reveal">
-      <h3>✓ Ausstattung</h3>
+      <h3 data-ez="wohnung.ausstattungTitel"><%- ez.t('wohnung.ausstattungTitel', '✓ Ausstattung') %></h3>
       <ul class="list-check">
-        <% c.wohnung.ausstattung.forEach(a => { %><li><%= a %></li><% }) %>
+        <% ez.liste('wohnung.ausstattung').forEach(e => { %><li data-ez="<%= e.k %>"<%- e.leer ? ' class="ez-platz"' : '' %>><%- e.html %></li><% }) %>
       </ul>
     </div>
     <div class="panel panel-muted reveal">
-      <h3>Bitte selbst mitbringen</h3>
+      <h3 data-ez="wohnung.mitbringenTitel"><%- ez.t('wohnung.mitbringenTitel', 'Bitte selbst mitbringen') %></h3>
       <ul class="list-dash">
-        <% c.wohnung.nichtAusstattung.forEach(a => { %><li><%= a %></li><% }) %>
+        <% ez.liste('wohnung.nichtAusstattung').forEach(e => { %><li data-ez="<%= e.k %>"<%- e.leer ? ' class="ez-platz"' : '' %>><%- e.html %></li><% }) %>
       </ul>
       <div class="note">
-        <p>💧 <%= c.wohnung.hinweisWasser %></p>
-        <p>🥖 <%= c.wohnung.hinweisEinkauf %> <a href="http://www.brunellawirt.at" target="_blank" rel="noopener">brunellawirt.at</a></p>
+        <p>💧 <span data-ez="wohnung.hinweisWasser"><%- ez.t('wohnung.hinweisWasser') %></span></p>
+        <p>🥖 <span data-ez="wohnung.hinweisEinkauf"><%- ez.t('wohnung.hinweisEinkauf') %></span> <a href="http://www.brunellawirt.at" target="_blank" rel="noopener">brunellawirt.at</a></p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt" id="grundriss">
   <div class="container narrow center reveal">
-    <h2 class="section-title">Grundriss</h2>
-    <p class="lead">So ist unsere Wohnung aufgeteilt – zum Vergrößern anklicken.</p>
+    <h2 class="section-title" data-ez="wohnung.grundrissTitel"><%- ez.t('wohnung.grundrissTitel', 'Grundriss') %></h2>
+    <p class="lead" data-ez="wohnung.grundrissText"><%- ez.t('wohnung.grundrissText', 'So ist unsere Wohnung aufgeteilt – zum Vergrößern anklicken.') %></p>
     <figure class="floorplan">
-      <img src="/images/wohnung-aussen.jpg" alt="Grundriss der Wohnung" loading="lazy" data-lightbox="grundriss">
+      <img src="<%= ez.bild('bild.wohnung.grundriss', '/images/wohnung-aussen.jpg') %>" alt="Grundriss der Wohnung" loading="lazy" data-lightbox="grundriss" data-ez-img="bild.wohnung.grundriss">
     </figure>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="anfragen">
   <div class="container center reveal">
-    <a href="/anfrage" class="btn btn-accent btn-lg">Verfügbarkeit anfragen</a>
+    <a href="<%= ez.link('wohnung.knopfAnfrage', '/anfrage') %>" class="btn btn-accent btn-lg" data-ez="wohnung.knopfAnfrage"><%- ez.t('wohnung.knopfAnfrage', 'Verfügbarkeit anfragen') %></a>
   </div>
 </section>
 

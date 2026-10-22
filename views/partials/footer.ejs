@@ -2,22 +2,22 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col">
-      <img src="/images/logo-white.png" alt="<%= c.site.name %>" class="footer-logo">
-      <p><%= c.kontakt.name %><br>
+      <img src="/images/logo-white.png" alt="<%= ez.text('global.site.name') %>" class="footer-logo">
+      <p><span data-ez="global.kontakt.name"><%- ez.t('global.kontakt.name') %></span><br>
         Garfrescha, St. Gallenkirch<br>
         Montafon, Vorarlberg</p>
     </div>
     <div class="footer-col">
       <h4>Kontakt</h4>
       <p>
-        <a href="tel:<%= c.site.phone.replace(/\s+/g, '') %>"><%= c.site.phone %></a><br>
-        <a href="mailto:<%= c.site.email %>"><%= c.site.email %></a>
+        <a href="tel:<%= ez.text('global.site.phone').replace(/\s+/g, '') %>"><span data-ez="global.site.phone"><%- ez.t('global.site.phone') %></span></a><br>
+        <a href="mailto:<%= ez.text('global.site.email') %>"><span data-ez="global.site.email"><%- ez.t('global.site.email') %></span></a>
       </p>
       <div class="social">
-        <a href="<%= c.site.facebook %>" target="_blank" rel="noopener" aria-label="Facebook">
+        <a href="<%= ez.text('global.site.facebook') %>" target="_blank" rel="noopener" aria-label="Facebook">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5H16.7V3.6c-.3-.04-1.3-.13-2.5-.13-2.5 0-4.2 1.5-4.2 4.3v2.1H7.3V13H10v8z"/></svg>
         </a>
-        <a href="<%= c.site.instagram %>" target="_blank" rel="noopener" aria-label="Instagram">
+        <a href="<%= ez.text('global.site.instagram') %>" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
         </a>
       </div>
@@ -43,7 +43,7 @@
   </div>
   <div class="footer-bottom">
     <span>© <%= new Date().getFullYear() %> Haus Felder Garfrescha</span>
-    <a href="/admin" class="admin-link">Admin</a>
+    <a href="/website" class="admin-link" rel="nofollow">Admin</a>
   </div>
 </footer>
 <nav class="bottom-nav" aria-label="Mobile Navigation">
@@ -77,6 +77,9 @@
   <button class="lb-next" aria-label="Nächstes Bild">&#10095;</button>
 </div>
 <script src="/js/main.js"></script>
+<!-- FS Creative Websitebuilder -->
+<script src="/js/ez-site.js?v=<%= ez.fassung %>"></script>
+<script src="/builder/runtime.js?v=<%= ez.fassung %>"></script>
 <script src="/js/fs-consent.js" defer></script>
 </body>
 </html>
